@@ -1,0 +1,38 @@
+<script>
+    $(document).ready(function(){
+        console.log('Hello');
+        var max=document.getElementById('id_package_form-max_fractions');
+        var total=document.getElementById('id_package_form-total_package');
+        $('#id_package_form-treatment').change(function(){
+            var ttoptionSelected = $(this).find("option:selected");
+            var ttvalueSelected  = ttoptionSelected.val();
+            var tttextSelected   = ttoptionSelected.text();
+            console.log('tt: ', tttextSelected);
+            $('#id_package_form-patient_type').change(function(){
+                var pttoptionSelected = $(this).find("option:selected");
+                var pttvalueSelected  = pttoptionSelected.val();
+                var ptttextSelected   = pttoptionSelected.text();
+                var csr = $("input[name=csrfmiddlewaretoken]").val();
+                console.log('ptt: ', ptttextSelected);
+                pkg={treatment:tttextSelected, patient_type:ptttextSelected, csrfmiddlewaretoken:csr}
+                $.ajax({
+                    url:"{% url 'solapur:tp_mx' %}",
+                    method: "POST",
+                    data: pkg,
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        console.log(data.mf);
+                        console.log(data.tp);
+                        var mf=data.mf;
+                        var tp=data.tp;
+                        max.value=mf;
+                        total.value=tp;
+                        console.log('max.value ka value: ', max.value);
+                        console.log('total.value ka value: ', total.value);
+                    }
+                });
+            });
+        });
+    });
+</script>

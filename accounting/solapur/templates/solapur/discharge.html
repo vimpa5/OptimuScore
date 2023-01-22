@@ -1,0 +1,62 @@
+{% extends 'account/center_form_base2.html' %}
+{% load static %}
+{% block title %}Discharge Form{% endblock title %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.patient.label_tag}}</span>
+                        </div>
+                        <div class="col-10">
+                            {{form.patient}}<span class="bg-warning text-dark">{{form.patient.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.patient_type.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.patient_type}}<span class="bg-warning text-dark">{{form.patient_type.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.date_of_discharge.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.date_of_discharge}}<span class="bg-warning text-dark">{{form.date_of_discharge.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.discharge_updated.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.discharge_updated}}<span class="bg-warning text-dark">{{form.discharge_updated.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.remarks.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.remarks}}<span class="bg-warning text-dark">{{form.remarks.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col text-center p-2">
+                            <input class="submitbtn" type="submit" value="Save">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}

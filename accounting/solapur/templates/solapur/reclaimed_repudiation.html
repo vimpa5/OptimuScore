@@ -1,0 +1,159 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <title>Reclaimed Repudiation Data</title>
+    <style>
+        .design {
+         border: 1px solid black
+        }
+       </style>
+</head>
+<body>
+    <div class="mt-5 ms-5 mb-5 me-5">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{myFilter.form.as_p}}
+            <button type="submit">Search</button>
+        </form>
+        <table class="design">
+            <h3>Reclaimed Repudiation Data</h3>
+            <th class="design text-center">ID</th>
+            <th class="design text-center">Name</th>
+            <th class="design text-center">Patient Number</th>
+            <th class="design text-center">MR/UID</th>
+            <th class="design text-center">Diagnosis</th>
+            <th class="design text-center">Treatment Type</th>
+            <th class="design text-center">Type of Patient</th>
+            <th class="design text-center">Date of Admission</th>
+            <th class="design text-center">Max Fractions</th>
+            <th class="design text-center">Total Package</th>
+            <th class="design text-center">Discount</th>
+            <th class="design text-center">Approved Package</th>
+            <th class="design text-center">Proposed Fractions</th>
+            <th class="design text-center">RT Number</th>
+            <th class="design text-center">Radiotherapy Date</th>
+            <th class="design text-center">Done Fractions</th>
+            <th class="design text-center">Base Value</th>
+            <th class="design text-center">Expected Value</th>
+            <th class="design text-center">Date of Discharge</th>
+            <th class="design text-center">Amount Received</th>
+            <th class="design text-center">Billing Month</th>
+            <th class="design text-center">Deficit or Surplus Amount</th>
+            <th class="design text-center">Deficit Percentage</th>
+            <th class="design text-center">Surplus Percentage</th>
+            <th class="design text-center">Cash/Partial Cash</th>
+            <th class="design text-center">Action</th>
+            {% for rp in page_obj %}
+            <tr class="design text-center">
+                <td class="design text-center">{{rp.ipdreport.track_id}}</td>
+                <td class="design text-center">
+                    {% if rp.ipdreport.patient.title == '0' %}
+                        Mr.&#160;{{rp.ipdreport.patient.name}}
+                    {% elif rp.ipdreport.patient.title == '1' %}
+                        Mrs.&#160;{{rp.ipdreport.patient.name}}
+                    {% elif rp.ipdreport.patient.title == '2' %}
+                        Ms.&#160;{{rp.ipdreport.patient.name}}
+                    {% elif rp.ipdreport.patient.title == '3' %}
+                        Mast.&#160;{{rp.ipdreport.patient.name}}
+                    {% endif %}
+                </td>
+                <td class="design text-center">{{rp.ipdreport.patient.patient_number}}</td>
+                <td class="design text-center">{{rp.ipdreport.patient.mr_uid}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.diagnosis}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.treatment}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.patient_type}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.date_of_admission}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.max_fractions}}</td>
+                <td class="design text-center">{{rp.ipdreport.package.total_package}}</td>
+                <td class="design text-center">{{rp.ipdreport.approvedpackage.discount}}</td>
+                <td class="design text-center">{{rp.ipdreport.approvedpackage.approved_package}}</td>
+                <td class="design text-center">{{rp.ipdreport.approvedpackage.proposed_fractions}}</td>
+                <td class="design text-center">{{rp.ipdreport.ctscan.rt_number}}</td>
+                <td class="design text-center">{{rp.ipdreport.radiations.date}}</td>
+                <td class="design text-center">{{rp.ipdreport.radiations.done_fractions}}</td>
+                <td class="design text-center">
+                    {% if rp.ipdreport.package.patient_type.patient_type == 'CASH' or rp.ipdreport.realization.cash == True %}
+                        -- 
+                    {% else %}
+                        {{rp.ipdreport.radiations.base_value}}
+                    {% endif %}
+                </td>
+                <td class="design text-center">
+                    {% if rp.ipdreport.package.patient_type.patient_type == 'CASH' or rp.ipdreport.realization.cash == True %}
+                        -- 
+                    {% else %}
+                        {% if rp.ipdreport.radiations.expected_value < 0 %} 
+                            {{rp.ipdreport.radiations.expected_value|abs}} 
+                        {% else %} 
+                            {{rp.ipdreport.radiations.expected_value}} 
+                        {% endif %} 
+                    {% endif %}
+                </td>
+                <td class="design text-center">{{rp.ipdreport.discharge.date_of_discharge}}</td>
+                <td class="design text-center">{{rp.ipdreport.realization.amount_received}}</td>
+                <td class="design text-center">{{rp.ipdreport.realization.billing_month}}</td>
+                <td class="design text-center">
+                    {% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %}
+                        --
+                    {% else %}
+                        {{rp.ipdreport.realization.deficit_or_surplus_amount}}
+                    {% endif %}
+                </td>
+                <td class="design text-center">{% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %} -- {% else %} {{rp.ipdreport.realization.deficit_percentage|floatformat}} {% endif %}</td>
+                <td class="design text-center">{% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %} -- {% else %} {{rp.ipdreport.realization.surplus_percentage|floatformat}} {% endif %}</td>
+                <td class="design text-center">{% if rp.ipdreport.realization.cash == True %} Yes {% elif rp.ipdreport.realization.cash == False %} No {% elif rp.ipdreport.realization.cash == None %}  {% endif %}</td>
+                <td class="design text-center">
+                    <form action="{% url 'claim_received' rp.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Claim Received">
+                    </form></td>
+                </tr>
+            {% endfor %}
+            </table><br>
+
+            <a href="{% url 'export_reclaimed_repudiated_report' %}" class="btn btn-success btn-sm">Export</a><br><br>
+
+            <div>
+                <span>
+                    {% if page_obj.has_previous %}
+                            <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+                    {% endif %}
+                    <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+                    {% if page_obj.has_next %}
+                            <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+                    {% endif %}
+                </span>
+            </div><br>
+
+
+            <p>
+                <a href="{% url 'update_db' %}">Update Patients' Database</a><br><br>
+                <a href="{% url 'opd' %}">OPD Form</a><br><br>
+                <a href="{% url 'package' %}">Package</a><br><br>
+                <a href="{% url 'patient' %}">Patient</a><br><br>
+                <a href="{% url 'discharge' %}">Discharge</a><br><br>
+                <a href="{% url 'claimed' %}">Claimed Pending Cases</a><br><br>
+                <a href="{% url 'unclaimed' %}">Unclaimed Pending Cases</a><br><br>
+                <a href="{% url 'repudiated' %}">Repudiated Claims</a><br><br>
+                <a href="{% url 'realization' %}">Realization</a><br><br>
+                <a href="{% url 'approved_package' %}">Approved Package</a><br><br>
+                <a href="{% url 'ongoing' %}">Ongoing Patients</a><br><br>
+                <a href="{% url 'opd_report' %}">OPD Patients</a><br><br>
+                <a href="{% url 'ipd' %}">IPD Report</a>
+            </p>
+    </div>
+    
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{% extends 'account/report_base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Withdrawals{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.particulars.label_tag}}</span>
+                    </div>
+                    <div class="col-10">
+                        {{myFilter.form.particulars}}<span class="bg-warning text-dark">{{myFilter.form.particulars.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.amount.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.amount}}<span class="bg-warning text-dark">{{myFilter.form.amount.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.voucher_number.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.voucher_number}}<span class="bg-warning text-dark">{{myFilter.form.voucher_number.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">Depositor</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Particulars</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Balance</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Voucher Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Supportive Image</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Supportive Document</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Published Date and Time</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.depositor.depositor}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">{{rp.date}}</td>
+                            <td class="p-2">{{rp.particulars}}</td>
+                            <td class="p-2">{{rp.amount}}</td>
+                            <td class="p-2">{{rp.balance}}</td>
+                            <td class="p-2">{{rp.voucher_number}}</td>
+                            <td class="p-2">{% if rp.image %} <a href="{{rp.image.url}}" class="btn btn-primary btn-sm">View Image</a> {% else %} No Image {% endif %}</td>
+                            <td class="p-2">{% if rp.docs %} <a href="{{rp.docs.url}}" class="btn btn-primary btn-sm">Download File</a> {% else %} No File {% endif %}</td>
+                            <td class="p-2">{{rp.upload_date}}</td>
+                            <td class="p-2">
+                                <a href="{% url 'dhule:update_withdrawal' rp.id %}"><abbr title="Edit"><i class="fas fa-pen-to-square text-warning"></i></abbr></a>&nbsp;&nbsp;
+                                    <form action="{% url 'dhule:withdrawal_delete' rp.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-secondary btn-sm text-warning">
+                                    </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'account/images/logo.ico' type='image/x-icon' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+    <title>Operations</title>
+</head>
+<body class="bg-dark">
+    <div class="sticky-top">
+        {% url 'dhule:dashboard' as dd %}
+        {% url 'solapur:dashboard' as sd %}
+        <nav class="navbar navbar-expand-sm navbar-dark bg-warning">
+            <a href="#" class="navbar-brand">
+                <img src="{% static 'account/images/Logo.png' %}" alt="Logo" class="bg-dark p-2">
+            </a>
+            <div class="container">
+                <span class="font-monospace border-bottom border-dark shadow-lg p-2"><h1 style="font-size: 50px;">Data Center</h1></span>
+                <ul class="navbar-nav ms-auto me-5">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><b>Account</b></a>
+                        <ul class="dropdown-menu">
+                            {% if cur_user.is_superuser and cur_user.is_superuser == True %}
+                                {% if cur_user.location == 'Dhule' %}
+                                    <li><a class="dropdown-item" href="{% url 'dhulehome' %}">Home</a></li>
+                                {% elif cur_user.location == 'Solapur' %}
+                                    <li><a class="dropdown-item" href="{% url 'solapurhome' %}">Home</a></li>
+                                {% elif cur_user.location == 'Other' %}
+                                    <li><a class="dropdown-item" href="{% url 'adminhome' %}">Home</a></li>
+                                {% endif %}
+                                {% if request.path == dd %}
+                                    <li><a class="dropdown-item" href="{% url 'solapur:dashboard' %}">Solapur-Dashboard</a></li>
+                                {% elif request.path == sd %}
+                                    <li><a class="dropdown-item" href="{% url 'dhule:dashboard' %}">Dhule-Dashboard</a></li>
+                                {% elif request.path != sd and request.path != dd %}
+                                    <li><a class="dropdown-item" href="{% url 'dhule:dashboard' %}">Dhule-Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'solapur:dashboard' %}">Solapur-Dashboard</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'passchange' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'signup' %}">Create User</a></li>
+                                <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Admin Site</a></li>
+                            {% else %}
+                                {% if not cur_user.location == 'Other' %}
+                                    {% if cur_user.location == 'Dhule' %}
+                                        <li><a class="dropdown-item" href="{% url 'dhulehome' %}">Home</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'passchange' %}">Change Password</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{% url 'solapurhome' %}">Home</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'passchange' %}">Change Password</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                    {% endif %}
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'adminhome' %}">Home</a></li>
+                                    {% if request.path == dd %}
+                                        <li><a class="dropdown-item" href="{% url 'solapur:dashboard' %}">Solapur-Dashboard</a></li>
+                                    {% elif request.path == sd %}
+                                        <li><a class="dropdown-item" href="{% url 'dhule:dashboard' %}">Dhule-Dashboard</a></li>
+                                    {% elif request.path != sd and request.path != dd %}
+                                        <li><a class="dropdown-item" href="{% url 'dhule:dashboard' %}">Dhule-Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'solapur:dashboard' %}">Solapur-Dashboard</a></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item" href="{% url 'passchange' %}">Change Password</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <div class="row text-center text-warning">
+            <div class="col-2 offset-1 home rounded"><span class="bg-dark rounded">&nbsp;Data Entry&nbsp;</span></div>
+            <div class="col-2 offset-1 home rounded"><span class="bg-dark rounded">&nbsp;Reports&nbsp;</span></div>
+            <div class="col-2 offset-1 home rounded"><span class="bg-dark rounded">&nbsp;Bills&nbsp;</span></div>
+            <div class="col-2 offset-1 home rounded"><span class="bg-dark rounded">&nbsp;Data Modification&nbsp;</span></div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="row text-warning">
+            <div class="col-2 offset-1 home rounded pt-2">
+                <ul>
+                    <li>
+                        <a href="{% url 'dhule:patient' %}" target='_blank'>Create Patient</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:service_name' %}" target='_blank'>Create A Service</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:opd' %}" target='_blank'>OPD Form</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:package' %}" target='_blank'>Create Package</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:approved_package' %}" target='_blank'>Approved Package</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:ctscan' %}" target='_blank'>CT Scan</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:radiations' %}" target='_blank'>Enter Radiation Fractions</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:discharge' %}" target='_blank'>Discharge Patient</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:realization' %}" target='_blank'>Enter Receipt</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:lock_data' %}" target='_blank'>Lock Data</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:diagnosis' %}" target='_blank'>Diagnosis</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:treatment' %}" target='_blank'>Treatment</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:patient_type' %}" target='_blank'>Patient Category</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:paxmax' %}" target='_blank'>Total Package and Maximum Fractions</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:depositor' %}" target='_blank'>Create A Depositor</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:petty_cash' %}" target='_blank'>Petty Cash</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:other_income' %}" target='_blank'>Other Income</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:other_expenses' %}" target='_blank'>Other Expenses</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:additional_income' %}" target='_blank'>Additional Income</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:common_expenses' %}" target='_blank'>Common Expenses</a><br><br>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 offset-1 home rounded pt-2">
+                <ul>
+                    <li>
+                        <a href="{% url 'dhule:opd_report' %}" target='_blank'>OPD Patients</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:ipd' %}" target='_blank'>IPD Track Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:ongoing' %}" target='_blank'>Ongoing Patients</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:claimed' %}" target='_blank'>Claimed Pending Cases</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:unclaimed' %}" target='_blank'>Unclaimed Pending Cases</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:repudiated' %}" target='_blank'>Repudiated Claims</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:petty_cash_overview' %}" target='_blank'>Petty Cash Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:common_expenses_report' %}" target='_blank'>Common Expenses Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:other_income_report' %}" target='_blank'>Other Income Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:additional_income_report' %}" target='_blank'>Additional Income Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:other_expenses_report' %}" target='_blank'>Other Expenses Report</a><br><br>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 offset-1 home rounded pt-2">
+                <ul>
+                    <li>
+                        <a href="{% url 'dhule:bill_gateway' %}" target='_blank'>Provisional Bill Gateway</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:quarterly_bills_gateway' %}" target='_blank'>Quarterly Bill Gateway</a><br><br>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 offset-1 home rounded pt-2">
+                <ul>
+                    <li>
+                        <a href="{% url 'dhule:patient_report' %}" target='_blank'>View/Update Patient's Details</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:paxmax_report' %}" target='_blank'>View/Update Total Package and Maximum Fractions</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:package_report' %}" target='_blank'>View/Update Patient's Package Details</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:approved_package_report' %}" target='_blank'>View/Update Patient's Approved Package Details</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:ct_report' %}" target='_blank'>View/Update CT Scan Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:radiations_report' %}" target='_blank'>View/Update Fractions Report</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:discharge_report' %}" target='_blank'>View/Update Patient's Discharge Details</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:realization_report' %}" target='_blank'>View/Update Final Payments from Patients</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:lock_data_report' %}" target='_blank'>View/Update Locked Data</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:opd_slim_report' %}" target='_blank'>View/Update OPD Details</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:piggy_report' %}" target='_blank'>View/Update Petty Cash Deposits</a><br><br>
+                    </li>
+                    <li>
+                        <a href="{% url 'dhule:withdrawal_report' %}" target='_blank'>View/Update Petty Cash Expenses</a><br><br>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+</html>

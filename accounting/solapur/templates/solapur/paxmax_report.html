@@ -1,0 +1,47 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Rate Chart{% endblock title %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Rates</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">Treatment Type</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Patient Category</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Maximum Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Total Package</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in report %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.treatment}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">{{rp.patient_type}}</td>
+                            <td class="p-2">{{rp.max_fractions}}</td>
+                            <td class="p-2">{{rp.total_package}}</td>
+                            <td class="p-2">
+                                <a href="{% url 'solapur:update_paxmax' rp.id %}"><abbr title="Edit"><i class="fas fa-pen-to-square text-warning"></i></abbr></a>&nbsp;&nbsp;
+                                    <form action="{% url 'solapur:paxmax_delete' rp.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-secondary btn-sm text-warning">
+                                    </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}

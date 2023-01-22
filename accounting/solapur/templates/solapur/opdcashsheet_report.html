@@ -1,0 +1,186 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}OPD Cash-Sheet{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.patient__name.label_tag}}</span>
+                    </div>
+                    <div class="col-10">
+                        {{myFilter.form.patient__name}}<span class="bg-warning text-dark">{{myFilter.form.patient__name.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">Date</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Patient</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Particulars</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Source</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Case Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Mode</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount-In</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount-Out</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Balance</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">OOPL Bank</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Remarks</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Created On</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Modified On</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.date}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">
+                                {% if rp.patient == None %}
+                                    --
+                                {% else %}
+                                    {{rp.patient}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.opd_particulars == None %}
+                                    --
+                                {% else %}
+                                    {{rp.opd_particulars}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.source}}</td>
+                            <td class="p-2">
+                                {% if rp.case_number == None %}
+                                    --
+                                {% else %}
+                                    {{rp.case_number}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.mode == 'cash' %}
+                                    Cash
+                                {% elif rp.mode == 'bank' %}
+                                    Bank
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.cash_in == None %}
+                                    --
+                                {% else %}
+                                    {{rp.cash_in}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.cash_out == None %}
+                                    --
+                                {% else %}
+                                    {{rp.cash_out}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.balance}}</td>
+                            <td class="p-2">
+                                {% if rp.bank_oopl == None %}
+                                    --
+                                {% else %}
+                                    {{rp.bank_oopl}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.remarks == None %}
+                                    --
+                                {% else %}
+                                    {{rp.remarks}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.created_on}}</td>
+                            <td class="p-2">{{rp.modified_on}}</td>
+                            <td class="p-2">
+                                <a href="{% url 'solapur:update_opdcashsheet_report' rp.id %}"><i class="fas fa-pen-to-square text-warning"></i></a>
+                                <form action="{% url 'solapur:opdcashsheet_report_delete' rp.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm text-light">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-light">
+                        <td class="col-id-no text-dark text-center" scope="row"><b>Total:</b></td>
+                        <td class="col-name" scope="row"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2 text-center"><b>&#8377;{{total1.cash_in__sum|floatformat}}</b></td>
+                        <td class="p-2 text-center"><b>&#8377;{{total2.cash_out__sum|floatformat}}</b></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

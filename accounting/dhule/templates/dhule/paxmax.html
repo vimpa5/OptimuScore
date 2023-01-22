@@ -1,0 +1,60 @@
+{% extends 'account/center_form_base.html' %}
+{% load static %}
+{% block title %}Rate Chart Entry{% endblock title %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.treatment.label_tag}}</span>
+                        </div>
+                        <div class="col-3">
+                            {{form.treatment}}<span class="bg-warning text-dark">{{form.treatment.errors|striptags}}</span>
+                        </div>
+                        <div class="col-1 text-end">
+                            <abbr title="Add a new treatment"><a href="{% url 'dhule:treatment' %}" target="_blank"><img src="{% static 'dhule/images/add.jpg' %}" alt="Add Treatment" width="20" height="20"></a></abbr>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.patient_type.label_tag}}</span>
+                        </div>
+                        <div class="col-3">
+                            {{form.patient_type}}<span class="bg-warning text-dark">{{form.patient_type.errors|striptags}}</span>
+                        </div>
+                        <div class="col-1 text-end">
+                            <abbr title="Add a new patient category"><a href="{% url 'dhule:patient_type' %}" target="_blank"><img src="{% static 'dhule/images/add.jpg' %}" alt="Add Patient Category" width="20" height="20"></a></abbr>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.max_fractions.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.max_fractions}}<span class="bg-warning text-dark">{{form.max_fractions.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.total_package.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.total_package}}<span class="bg-warning text-dark">{{form.total_package.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col text-center p-2">
+                            <input class="submitbtn" type="submit" value="Save">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}

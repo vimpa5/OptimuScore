@@ -1,0 +1,362 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}IPD Track Report{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.realization__cash.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.realization__cash}}<span class="bg-warning text-dark">{{myFilter.form.realization__cash.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.patient__name.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.patient__name}}<span class="bg-warning text-dark">{{myFilter.form.patient__name.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.ctscan__rt_number.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.ctscan__rt_number}}<span class="bg-warning text-dark">{{myFilter.form.ctscan__rt_number.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.package__patient_type__patient_type.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.package__patient_type__patient_type}}<span class="bg-warning text-dark">{{myFilter.form.package__patient_type__patient_type.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.realization__amount_received__gt.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.realization__amount_received__gt}}<span class="bg-warning text-dark">{{myFilter.form.realization__amount_received__gt.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.realization__amount_received__lt.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.realization__amount_received__lt}}<span class="bg-warning text-dark">{{myFilter.form.realization__amount_received__lt.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date_bill.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date_bill}}<span class="bg-warning text-dark">{{myFilter.form.from_date_bill.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date_bill.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date_bill}}<span class="bg-warning text-dark">{{myFilter.form.to_date_bill.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">ID</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Name</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Patient Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">MR/UID</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Diagnosis</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Treatment Type</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Patient Category</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Admission Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Maximum Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Total Package</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Discount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Approved Package</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Proposed Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">RT Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Radiotherapy Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Done Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Base Value</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Expected Value</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Discharge Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount Received</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Billing Month</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Deficit or Surplus Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Deificit Percentage</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Surplus Percentage</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Cash/Partial Cash</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Remarks</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Status</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Data Locked On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.track_id}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">
+                                {% if rp.patient.title == '0' %}
+                                    Mr.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '1' %}
+                                    Mrs.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '2' %}
+                                    Ms.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '3' %}
+                                    Mast.&#160;{{rp.patient.name}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.patient.patient_number}}</td>
+                            <td class="p-2">{{rp.patient.mr_uid}}</td>
+                            <td class="p-2">{{rp.package.diagnosis}}</td>
+                            <td class="p-2">{{rp.package.treatment}}</td>
+                            <td class="p-2">{{rp.package.patient_type}}</td>
+                            <td class="p-2">{{rp.package.date_of_admission}}</td>
+                            <td class="p-2">{{rp.package.max_fractions}}</td>
+                            <td class="p-2">{{rp.package.total_package}}</td>
+                            <td class="p-2">{{rp.approvedpackage.discount}}</td>
+                            <td class="p-2">{{rp.approvedpackage.approved_package}}</td>
+                            <td class="p-2">{{rp.approvedpackage.proposed_fractions}}</td>
+                            <td class="p-2">{{rp.ctscan.rt_number}}</td>
+                            <td class="p-2">{{rp.radiations.date}}</td>
+                            <td class="p-2">{{rp.radiations.done_fractions}}</td>
+                            <td class="p-2">
+                                {% if rp.package.patient_type.patient_type == 'CASH' or rp.realization.cash == True %}
+                                    -- 
+                                {% else %}
+                                    {{rp.radiations.base_value}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.package.patient_type.patient_type == 'CASH' or rp.realization.cash == True %}
+                                    -- 
+                                {% else %}
+                                    {% if rp.radiations.expected_value < 0 %} 
+                                        {{rp.radiations.expected_value|abs}} 
+                                    {% else %} 
+                                        {{rp.radiations.expected_value}} 
+                                    {% endif %} 
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.discharge.date_of_discharge}}</td>
+                            <td class="p-2">{{rp.realization.amount_received}}</td>
+                            <td class="p-2">{{rp.realization.billing_month}}</td>
+                            <td class="p-2">
+                                {% if rp.package.patient_type.patient_type == "CASH" or rp.realization.cash == True %}
+                                    --
+                                {% else %}
+                                    {{rp.realization.deficit_or_surplus_amount}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{% if rp.package.patient_type.patient_type == "CASH" or rp.realization.cash == True %} -- {% else %} {{rp.realization.deficit_percentage|floatformat}} {% endif %}</td>
+                            <td class="p-2">{% if rp.package.patient_type.patient_type == "CASH" or rp.realization.cash == True %} -- {% else %} {{rp.realization.surplus_percentage|floatformat}} {% endif %}</td>
+                            <td class="p-2">{% if rp.realization.cash == True %} Yes {% elif rp.realization.cash == False %} No {% elif rp.realization.cash == None %}  {% endif %}</td>
+                            <td class="p-2">
+                                {% if rp.package.remarks %}
+                                    <abbr title="Package: {{rp.package.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                                {% if rp.approvedpackage.remarks %}
+                                    <abbr title="Approved Package: {{rp.approvedpackage.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                                {% if rp.ctscan.remarks %}
+                                    <abbr title="CT Scan: {{rp.ctscan.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                                {% if rp.radiations.remarks %}
+                                    <abbr title="Radiations: {{rp.radiations.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                                {% if rp.discharge.remarks %}
+                                    <abbr title="Discharge: {{rp.discharge.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                                {% if rp.realization.remarks %}
+                                    <abbr title="Realization: {{rp.realization.remarks}}"><i class="fas fa-comment text-warning"></i></abbr><br>
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if not rp.approvedpackage %}
+                                    {% if not rp.lockdata %}
+                                    <abbr title="Awaiting Package Approval"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% else %}
+                                    <abbr title="Data Locked"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% endif %}
+                                {% elif not rp.ctscan %}
+                                    <abbr title="Awaiting CT Scan"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% if rp.realization %}
+                                        {% if rp.realization.cash == True %}
+                                            {% if rp.package.patient_type.patient_type != 'CASH' %}
+                                                <abbr title="Partial Cash"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% else %}
+                                                <abbr title="Cash Received"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% elif not rp.radiations %}
+                                    <abbr title="Awaiting First Fraction"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% if rp.realization %}
+                                        {% if rp.realization.cash == True %}
+                                            {% if rp.package.patient_type.patient_type != 'CASH' %}
+                                                <abbr title="Partial Cash"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% else %}
+                                                <abbr title="Cash Received"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% elif not rp.discharge %}
+                                    {% if not rp.realization %}
+                                    <abbr title="Ongoing Fractions"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% elif rp.realization %}
+                                        {% if rp.realization.cash == True %}
+                                            {% if rp.package.patient_type.patient_type != 'CASH' %}
+                                                <abbr title="Ongoing Fractions"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                                <abbr title="Partial Cash"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% else %}
+                                                <abbr title="Ongoing Fractions"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                                <abbr title="Cash Received"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% elif rp.realization %}
+                                    {% if rp.package.patient_type.patient_type != 'CASH' %}
+                                        {% if rp.discharge %}
+                                            {% if rp.discharge.discharge_updated == True %}
+                                                {% if not rp.realization.deficit_or_surplus_amount < 0 %}
+                                                    <abbr title="Claim Received"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                                {% else %}
+                                                    <abbr title="Repudiated"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                                    {% if rp.previous.realization %}
+                                                        {% if rp.previous.realization.cash == False and rp.previous.realization.deficit_or_surplus_amount < 0 %}
+                                                        <abbr title="Reclaimed Amount Received"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        <abbr title="Cash Realized"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                    {% endif %}
+                                {% elif not rp.realization %}
+                                    {% if rp.discharge.discharge_updated == True %}
+                                        {% if rp.package.patient_type.patient_type == 'CASH' %}
+                                            <abbr title="Cash Patient Discharged"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                        {% else %}
+                                            <abbr title="Discharged"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                            <abbr title="Pending Claim"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if rp.package.patient_type.patient_type == 'CASH' %}
+                                            <abbr title="Cash Patient Discharged"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                        {% else %}
+                                            <abbr title="Discharged But Not Claimed"><i class="fas fa-hashtag text-warning"></i></abbr><br>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{% if rp.lockdata.lock == True %} {{rp.lockdata.date}} {% else %} {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-light">
+                        <td class="col-id-no text-warning text-center" scope="row"><b>Total:</b></td>
+                        <td class="col-name" scope="row"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2 text-warning"><b>&#8377;{{total1.realization__amount_received__sum|floatformat}}</b></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block export %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center">
+                <a href="{% url 'solapur:export_track_report' %}" class="btn btn-warning btn-sm text-dark">Export</a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock export %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

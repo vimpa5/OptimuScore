@@ -1,0 +1,140 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}OPD Track Report{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5 filt">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.patient__name.label_tag}}</span>
+                    </div>
+                    <div class="col-10">
+                        {{myFilter.form.patient__name}}<span class="bg-warning text-dark">{{myFilter.form.patient__name.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; width: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">ID</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Patient Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Bill Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Name</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Service Name</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Mode</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.track_id}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">{{rp.patient.patient_number}}</td>
+                            <td class="p-2">{{rp.opd.bill_number}}</td>
+                            <td class="p-2">{{rp.opd.date}}</td>
+                            <td class="p-2">
+                                {% if rp.patient.title == '0' %}
+                                    Mr.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '1' %}
+                                    Mrs.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '2' %}
+                                    Ms.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '3' %}
+                                    Mast.&#160;{{rp.patient.name}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.opd.service_name.service_name}}</td>
+                            <td class="p-2">{{rp.opd.mode}}</td>
+                            <td class="p-2">{{rp.opd.amount}}</td>
+                            <td class="p-2">
+                                {% if rp.opd.remarks %}
+                                    <abbr title="{{rp.opd.remarks}}"><i class="fas fa-comment text-warning"></i></abbr>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-light">
+                        <td class="col-id-no text-warning text-center" scope="row"><b>Total:</b></td>
+                        <td class="col-name" scope="row"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2 text-light text-center"><b>&#8377;{{total.opd__amount__sum|floatformat}}</b></td>
+                        <td class="p-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block export %}
+<div class="row pt-3">
+    <div class="col-4"></div>
+    <div class="col-4 text-center">
+        <a href="{% url 'solapur:export_opd_track_report' %}" class="btn btn-warning btn-sm text-dark">Export</a>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock export %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

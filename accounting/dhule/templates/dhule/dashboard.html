@@ -1,0 +1,127 @@
+{% extends 'account/base_dashboard.html' %}
+{% block title %}Dhule-Dashboard{% endblock title %}
+{% block greeting %}{{cur_user}}'s Dashboard{% endblock greeting %}
+{% block upper %}
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>OPD Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{opd}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Income From OPD Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                &#8377;&#160;{{opd_amt.amount__sum|floatformat}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Total Patients</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{patients}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Ongoing Treatment</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{ongoing}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-end border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light">
+                <b>Radiations Done Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{radiation}}
+            </div>
+        </div>
+    </div>
+{% endblock upper %}
+{% block lower %}
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Billed Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{realization}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Income From IPD Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                &#8377;&#160;{{realization_amt.amount_received__sum|floatformat}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Total Patients Discharged Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{discharge}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light border-end border-dark">
+                <b>Discharges Updated Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{updated_discharge}}
+            </div>
+        </div>
+    </div>
+    <div class="col-2 border-start border-top border-bottom border-end border-light">
+        <div class="row border-bottom border-light text-center">
+            <div class="col text-dark bg-light">
+                <b>Unupdated Discharges Today</b>
+            </div>
+        </div>
+        <div class="row text-center p-5">
+            <div class="col text-light">
+                {{unupdated_discharge}}
+            </div>
+        </div>
+    </div>
+{% endblock lower %}

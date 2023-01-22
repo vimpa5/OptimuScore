@@ -1,0 +1,152 @@
+{% extends 'account/home_base.html' %}
+{% block title %}Home{% endblock title %}
+{% if form.is_superuser %}
+{% block intro1 %}Welcome {{name}}!{% endblock intro1 %}
+    {% if messages %}
+        {% block messages1 %}
+            {% for message in messages %}
+                <small {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</small>
+            {% endfor %}
+        {% endblock messages1 %}
+    {% endif %}
+    {% block mainform1 %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{form.non_field_errors}}
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.password.label_tag}}</span>&nbsp;{{form.password}}<span class="bg-warning text-dark">{{form.password.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.is_superuser.label_tag}}</span>&nbsp;{{form.is_superuser}}<span class="bg-warning text-dark">{{form.is_superuser.errors|striptags}}</span><br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.groups.label_tag}}</span>&nbsp;{{form.groups}}<span class="bg-warning text-dark">{{form.groups.errors|striptags}}</span><br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.user_permissions.label_tag}}</span>{{form.user_permissions}}<span class="bg-warning text-dark">{{form.user_permissions.errors|striptags}}</span><br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.username.label_tag}}</span>{{form.username}}<span class="bg-warning text-dark"></span>{{form.username.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.email.label_tag}}</span>{{form.email}}<span class="bg-warning text-dark">{{form.email.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.first_name.label_tag}}</span>{{form.first_name}}<span class="bg-warning text-dark">{{form.first_name.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.last_name.label_tag}}</span>{{form.last_name}}<span class="bg-warning text-dark">{{form.last_name.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.location.label_tag}}</span>{{form.location}}<span class="bg-warning text-dark">{{form.location.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.designation.label_tag}}</span>{{form.designation}}<span class="bg-warning text-dark">{{form.designation.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.is_active.label_tag}}</span>&nbsp;{{form.is_active}}<span class="bg-warning text-dark">{{form.is_active.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.is_staff.label_tag}}</span>&nbsp;{{form.is_staff}}<span class="bg-warning text-dark">{{form.is_staff.errors|striptags}}</span><br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.start_date.label_tag}}</span>{{form.start_date}}<span class="bg-warning text-dark">{{form.start_date.errors|striptags}}</span>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.last_login.label_tag}}</span>{{form.last_login}}<span class="bg-warning text-dark">{{form.last_login.errors|striptags}}</span><br>
+                </div>
+            </div>
+        {% endblock mainform1 %}
+        {% block btn1 %}
+            <input type="submit" value="Save" class="bg-warning rounded">
+        {% endblock btn1 %}
+    </form>
+    {% if users != None %}
+        {% block activeusers %}
+            <h6 class="text-center text-warning bg-dark rounded">List Of Active Users</h6>
+            {% for user in users %}
+                {% if user.username != form.username.value and user.is_active == True %}
+                    <ul>
+                        <li>
+                            <a href="{% url 'userdetail' user.id %}">{{user.username}}</a>&nbsp; > <span class="text-warning">{{user.location}}</span>&nbsp;{% if user.is_superuser == True %} * {% endif %}<br>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        {% endblock activeusers %}
+        {% block inactiveusers %}
+            <h6 class="text-center text-warning bg-dark rounded">List Of Inactive Users</h6>
+            {% for user in users %}
+                {% if user.username != form.username.value and user.is_active == False %}
+                    <ul>
+                        <li>
+                            <a href="{% url 'userdetail' user.id %}">{{user.username}}</a>&nbsp; > <span class="text-warning">{{user.location}}</span>&nbsp;{% if user.is_superuser == True %} * {% endif %}<br>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        {% endblock inactiveusers %}
+    {% endif %}
+{% else %}
+{% block intro2 %}Welcome {{name}}!{% endblock intro2 %}
+    {% if messages %}
+        {% block messages2 %}
+            {% for message in messages %}
+                <small {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</small>
+            {% endfor %}
+        {% endblock messages2 %}
+    {% endif %}
+    {% block mainform2 %}
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{form.non_field_errors}}
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.username.label_tag}}</span>{{form.username}}<span class="bg-warning text-dark">{{form.username.errors|striptags}}</span><br>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.email.label_tag}}</span>{{form.email}}<span class="bg-warning text-dark">{{form.email.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.first_name.label_tag}}</span>{{form.first_name}}<span class="bg-warning text-dark">{{form.first_name.errors|striptags}}</span><br>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.last_name.label_tag}}</span>{{form.last_name}}<span class="bg-warning text-dark">{{form.last_name.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.location.label_tag}}</span>{{form.location}}<span class="bg-warning text-dark">{{form.location.errors|striptags}}</span><br>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.designation.label_tag}}</span>{{form.designation}}<span class="bg-warning text-dark">{{form.designation.errors|striptags}}</span><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-light">{{form.start_date.label_tag}}</span>{{form.start_date}}<span class="bg-warning text-dark">{{form.start_date.errors|striptags}}</span><br>
+                </div>
+                <div class="col">
+                    <span class="text-light">{{form.last_login.label_tag}}</span>{{form.last_login}}<span class="bg-warning text-dark">{{form.last_login.errors|striptags}}</span><br>
+                </div>
+            </div>
+            {% endblock mainform2 %}
+        </form>
+{% endif %}

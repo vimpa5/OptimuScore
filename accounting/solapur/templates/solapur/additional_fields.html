@@ -1,0 +1,299 @@
+{% extends 'account/center_form_base2.html' %}
+{% load static %}
+{% block title %}Optional Fields{% endblock title %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container-fluid text-start border border-warning p-4 mt-5 shadow-lg rounded">
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_desc}}<span class="bg-warning text-dark">{{form.change_rt_cash_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_amount}}<span class="bg-warning text-dark">{{form.change_rt_cash_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_oopl_desc}}<span class="bg-warning text-dark">{{form.change_rt_cash_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_oopl_amount}}<span class="bg-warning text-dark">{{form.change_rt_cash_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_desc}}<span class="bg-warning text-dark">{{form.change_partial_cash_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_amount}}<span class="bg-warning text-dark">{{form.change_partial_cash_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_oopl_desc}}<span class="bg-warning text-dark">{{form.change_partial_cash_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_oopl_amount}}<span class="bg-warning text-dark">{{form.change_partial_cash_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_desc}}<span class="bg-warning text-dark">{{form.change_mjpjay_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_amount}}<span class="bg-warning text-dark">{{form.change_mjpjay_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_oopl_desc}}<span class="bg-warning text-dark">{{form.change_mjpjay_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_oopl_amount}}<span class="bg-warning text-dark">{{form.change_mjpjay_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_desc}}<span class="bg-warning text-dark">{{form.change_pmjay_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_amount}}<span class="bg-warning text-dark">{{form.change_pmjay_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_oopl_desc}}<span class="bg-warning text-dark">{{form.change_pmjay_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_oopl_amount}}<span class="bg-warning text-dark">{{form.change_pmjay_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_desc}}<span class="bg-warning text-dark">{{form.change_police_file_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_amount}}<span class="bg-warning text-dark">{{form.change_police_file_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_oopl_desc}}<span class="bg-warning text-dark">{{form.change_police_file_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_oopl_amount}}<span class="bg-warning text-dark">{{form.change_police_file_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_desc}}<span class="bg-warning text-dark">{{form.change_insurance_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_amount}}<span class="bg-warning text-dark">{{form.change_insurance_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_oopl_desc}}<span class="bg-warning text-dark">{{form.change_insurance_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_oopl_amount}}<span class="bg-warning text-dark">{{form.change_insurance_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_desc}}<span class="bg-warning text-dark">{{form.change_other_income_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_amount}}<span class="bg-warning text-dark">{{form.change_other_income_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_oopl_desc}}<span class="bg-warning text-dark">{{form.change_other_income_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_oopl_amount}}<span class="bg-warning text-dark">{{form.change_other_income_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_scc_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_scc_desc}}<span class="bg-warning text-dark">{{form.change_ct_scc_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_scc_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_scc_amount}}<span class="bg-warning text-dark">{{form.change_ct_scc_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_oopl_desc}}<span class="bg-warning text-dark">{{form.change_ct_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_oopl_amount}}<span class="bg-warning text-dark">{{form.change_ct_oopl_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_oopl_desc}}<span class="bg-warning text-dark">{{form.change_mould_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_oopl_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_oopl_amount}}<span class="bg-warning text-dark">{{form.change_mould_oopl_amount.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_scc_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_scc_desc}}<span class="bg-warning text-dark">{{form.change_mould_scc_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_scc_amount.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_scc_amount}}<span class="bg-warning text-dark">{{form.change_mould_scc_amount.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_additional_income_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_additional_income_desc}}<span class="bg-warning text-dark">{{form.change_additional_income_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.scc_share_add_in1.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.scc_share_add_in1}}<span class="bg-warning text-dark">{{form.scc_share_add_in1.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_additional_income_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_additional_income_oopl_desc}}<span class="bg-warning text-dark">{{form.change_additional_income_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.scc_share_add_in2.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.scc_share_add_in2}}<span class="bg-warning text-dark">{{form.scc_share_add_in2.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_expenses_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_expenses_desc}}<span class="bg-warning text-dark">{{form.change_other_expenses_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.scc_share_other_expenses1.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.scc_share_other_expenses1}}<span class="bg-warning text-dark">{{form.scc_share_other_expenses1.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_expenses_oopl_desc.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_expenses_oopl_desc}}<span class="bg-warning text-dark">{{form.change_other_expenses_oopl_desc.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.scc_share_other_expenses2.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.scc_share_other_expenses2}}<span class="bg-warning text-dark">{{form.scc_share_other_expenses2.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col text-center p-2">
+                    <input class="btn btn-warning btn-sm text-dark" type="submit" value="Go To Bill">
+                </div>
+            </div>
+        </div>
+{% endblock mainform %}

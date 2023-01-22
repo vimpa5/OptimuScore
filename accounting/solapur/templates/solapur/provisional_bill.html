@@ -1,0 +1,1443 @@
+{% extends 'account/bill_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Provisional Bill{% endblock title %}
+{% block bills %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-center"></div>
+            <div class="col-9 bdr2 bg-light text-center"><b>
+                {% if month == '01' %}
+                    PROVISIONAL BILL FOR THE MONTH OF JANUARY, {{year}}
+                {% elif month == '02' %}
+                    PROVISIONAL BILL FOR THE MONTH OF FEBRUARY, {{year}}
+                {% elif month == '03' %}
+                    PROVISIONAL BILL FOR THE MONTH OF MARCH, {{year}}
+                {% elif month == '04' %}
+                    PROVISIONAL BILL FOR THE MONTH OF APRIL, {{year}}
+                {% elif month == '05' %}
+                    PROVISIONAL BILL FOR THE MONTH OF MAY, {{year}}
+                {% elif month == '06' %}
+                    PROVISIONAL BILL FOR THE MONTH OF JUNE, {{year}}
+                {% elif month == '07' %}
+                    PROVISIONAL BILL FOR THE MONTH OF JULY, {{year}}
+                {% elif month == '08' %}
+                    PROVISIONAL BILL FOR THE MONTH OF AUGUST, {{year}}
+                {% elif month == '09' %}
+                    PROVISIONAL BILL FOR THE MONTH OF SEPTEMBER, {{year}}
+                {% elif month == '10' %}
+                    PROVISIONAL BILL FOR THE MONTH OF OCTOBER, {{year}}
+                {% elif month == '11' %}
+                    PROVISIONAL BILL FOR THE MONTH OF NOVEMBER, {{year}}
+                {% elif month == '12' %}
+                    PROVISIONAL BILL FOR THE MONTH OF DECEMBER, {{year}}
+                {% endif %}
+                </b>
+            </div>
+            <div class="col text-center"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-9 bg-light text-end bdr2">
+                DATE : {{day1}}/{{month1}}/{{year1}}<br>
+                {% if month == '01' %}
+                    REF : SCC/{{year|sub:1}}-{{year_list|slice:'2:4'|join:''}}/10
+                {% elif month == '02' %}
+                    REF : SCC/{{year|sub:1}}-{{year_list|slice:'2:4'|join:''}}/11
+                {% elif month == '03' %}
+                    REF : SCC/{{year|sub:1}}-{{year_list|slice:'2:4'|join:''}}/12
+                {% elif month == '04' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/01
+                {% elif month == '05' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/02
+                {% elif month == '06' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/03
+                {% elif month == '07' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/04
+                {% elif month == '08' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/05
+                {% elif month == '09' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/06
+                {% elif month == '10' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/07
+                {% elif month == '11' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/08
+                {% elif month == '12' %}
+                    REF : SCC/{{year}}-{{year_list|slice:'2:4'|join:''|add:1}}/09
+                {% endif %}
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-9 bg-light text-start bdr2"><b>
+                TO,<br>
+                THE DIRECTOR,<br>
+                SOLAPUR CANCER CENTER (SCC), SOLAPUR.
+                </b><br><br>
+                Dear Sir/Madam,<br>
+                {% if month == '01' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of January, {{year}}.
+                {% elif month == '02' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of February, {{year}}.
+                {% elif month == '03' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of March, {{year}}.
+                {% elif month == '04' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of April, {{year}}.
+                {% elif month == '05' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of May, {{year}}.
+                {% elif month == '06' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of June, {{year}}.
+                {% elif month == '07' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of July, {{year}}.
+                {% elif month == '08' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of August, {{year}}.
+                {% elif month == '09' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of September, {{year}}.
+                {% elif month == '10' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of October, {{year}}.
+                {% elif month == '11' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of November, {{year}}.
+                {% elif month == '12' %}
+                    We, herewith, send you the bill for Radiotherapy Services for the month of December, {{year}}.
+                {% endif %}<br>
+                Please settle the bill before the 10th of this month as agreed. Details of the bill and bank details are as follows.
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-9 text-start">
+                <div class="row bg1">
+                    <div class="col-7 text-start fs1 border-bottom border-dark"><b>PARTICULARS</b></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>CASH & BANK WITH</b></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark"><b>AMOUNT</b></div>
+                </div>
+                {% if total1 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if rt_cash_desc %}
+                                    {{rt_cash_desc}}
+                                {% else %}
+                                    RT CASH AMOUNT
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="cash_amt">
+                            <b>
+                                {{total1|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total1_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if rt_cash_oopl_desc %}
+                                    {{rt_cash_oopl_desc}}
+                                {% else %}
+                                    RT CASH AMOUNT
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="cash_amt">
+                            <b>
+                                {{total1_oopl|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total2 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if partial_cash_desc %}
+                                    {{partial_cash_desc}}
+                                {% else %}
+                                    PARTIAL CASH AMOUNT
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="partial_amt">
+                            <b>
+                                {{total2|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total2_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if partial_cash_oopl_desc %}
+                                    {{partial_cash_oopl_desc}}
+                                {% else %}
+                                    PARTIAL CASH AMOUNT
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="partial_amt">
+                            <b>
+                                {{total2_oopl|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total3 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if mjpjay_desc %}
+                                    {{mjpjay_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="mjpjay_amt">
+                            <b>
+                                {% if total3 == None %}
+                                    0
+                                {% else %}
+                                    {{total3|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total3_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if mjpjay_oopl_desc %}
+                                    {{mjpjay_oopl_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER MJPJAY IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="mjpjay_amt">
+                            <b>
+                                {{total3_oopl|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total4 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if pmjay_desc %}
+                                    {{pmjay_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {{total4|floatformat}}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total4_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if pmjay_oopl_desc %}
+                                    {{pmjay_oopl_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER PMJAY IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total4_oopl == None %}
+                                    0
+                                {% else %}
+                                    {{total4_oopl|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total7 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if police_file_desc %}
+                                    {{police_file_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total7 == None %}
+                                    0
+                                {% else %}
+                                    {{total7|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total7_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if police_file_oopl_desc %}
+                                    {{police_file_oopl_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER POLICE FILE IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total7_oopl == None %}
+                                    0
+                                {% else %}
+                                    {{total7_oopl|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total8 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if insurance_desc %}
+                                    {{insurance_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total8 == None %}
+                                    0
+                                {% else %}
+                                    {{total8|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total8_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if insurance_oopl_desc %}
+                                    {{insurance_oopl_desc}}
+                                {% else %}
+                                    {% if month == '01' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JANUARY, {{year}}
+                                    {% elif month == '02' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN FEBRUARY, {{year}}
+                                    {% elif month == '03' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN MARCH, {{year}}
+                                    {% elif month == '04' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN APRIL, {{year}}
+                                    {% elif month == '05' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN MAY, {{year}}
+                                    {% elif month == '06' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JUNE, {{year}}
+                                    {% elif month == '07' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN JULY, {{year}}
+                                    {% elif month == '08' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN AUGUST, {{year}}
+                                    {% elif month == '09' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN SEPTEMBER, {{year}}
+                                    {% elif month == '10' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN OCTOBER, {{year}}
+                                    {% elif month == '11' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN NOVEMBER, {{year}}
+                                    {% elif month == '12' %}
+                                        CREDIT REALISED AMOUNT UNDER INSURANCE IN DECEMBER, {{year}}
+                                    {% endif %}
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total8_oopl == None %}
+                                    0
+                                {% else %}
+                                    {{total8_oopl|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total13 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if other_income_desc %}
+                                    {{other_income_desc}}
+                                {% else %}
+                                    Other Income
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                SCC
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total13 == None %}
+                                    0
+                                {% else %}
+                                    {{total13|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total13_oopl %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if other_income_oopl_desc %}
+                                    {{other_income_oopl_desc}}
+                                {% else %}
+                                    Other Income
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                OOPL
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark" id="pmjay_amt">
+                            <b>
+                                {% if total13_oopl == None %}
+                                    0
+                                {% else %}
+                                    {{total13_oopl|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row bg-light">
+                    <div class="col-7 text-start fs1 border-bottom border-dark"></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>TOTAL (A)</b></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark" id="total1"><b>{{tot_comb|floatformat}}</b></div>
+                </div> 
+                <div class="row bg1">
+                    <div class="col-7 text-start fs1 border-bottom border-dark"><b>COMMON EXPENSES</b></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>PAID BY</b></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark"></div>
+                </div>
+                {% if total6 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if ct_scc_desc %}
+                                    {{ct_scc_desc}}
+                                {% else %}
+                                    CT BILL
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>SCC</b></div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                            <b>
+                                {% if total6 == None %}
+                                    0
+                                {% else %}
+                                    {{total6|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total11 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if ct_oopl_desc %}
+                                    {{ct_oopl_desc}}
+                                {% else %}
+                                    CT BILL
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>OOPL</b></div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                            <b>
+                                {% if total11 == None %}
+                                    0
+                                {% else %}
+                                    {{total11|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total5 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if mould_oopl_desc %}
+                                    {{mould_oopl_desc}}
+                                {% else %}
+                                    MOULD BILL
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>OOPL</b></div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                            <b>
+                                {% if total5 == None %}
+                                    0
+                                {% else %}
+                                    {{total5|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if total12 %}
+                    <div class="row bg-light">
+                        <div class="col-7 text-start fs2 border-bottom border-dark">
+                            <b>
+                                {% if mould_scc_desc %}
+                                    {{mould_scc_desc}}
+                                {% else %}
+                                    MOULD BILL
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>SCC</b></div>
+                        <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                            <b>
+                                {% if total12 == None %}
+                                    0
+                                {% else %}
+                                    {{total12|floatformat}}
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if com_exp_scc %}
+                    {% for scc_exp in com_exp_scc %}
+                        <div class="row bg-light">
+                            <div class="col-7 text-start fs2 border-bottom border-dark"><b>{{scc_exp.particulars}}</b></div>
+                            <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>SCC</b></div>
+                            <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                                <b>
+                                    {{scc_exp.amount}}
+                                </b>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if com_exp_oopl %}
+                    {% for oopl_exp in com_exp_oopl %}
+                        <div class="row bg-light">
+                            <div class="col-7 text-start fs2 border-bottom border-dark"><b>{{oopl_exp.particulars}}</b></div>
+                            <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>OOPL</b></div>
+                            <div class="col-2 text-center fs2 bg2 border-start border-bottom border-dark">
+                                <b>
+                                    {{oopl_exp.amount}}
+                                </b>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="row bg-light">
+                    <div class="col-7 text-start fs1 border-bottom border-dark"></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>TOTAL (B)</b></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark" id="total1"><b>{{tot2|floatformat}}</b></div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-10 text-center fs3 border-bottom border-dark"><b>TOTAL AMOUNT AFTER COMMON EXPENSES (A-B)</b></div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark"><b>{{tot3|floatformat}}</b></div>
+                </div>
+                <div class="row bg1">
+                    <div class="col-2 text-center fs1 border-bottom border-dark"></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark"><b>SLAB</b></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>FINAL % (SCC)</b></div>
+                    <div class="col-3 text-center fs1 border-start border-bottom border-dark"><b>SCC</b></div>
+                    <div class="col-2 text-center fs1 border-start border-bottom border-dark"><b>OOPL</b></div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs2 border-bottom border-dark">{{val1|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">Upto 20 Lacs</div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>10</b></div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark">{{val6|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">{{val11|floatformat}}</div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs2 border-bottom border-dark">{{val2|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">20 Lacs - 40 Lacs</div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>15</b></div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark">{{val7|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">{{val12|floatformat}}</div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs2 border-bottom border-dark">{{val3|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">40 Lacs - 60 Lacs</div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>20</b></div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark">{{val8|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">{{val13|floatformat}}</div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs2 border-bottom border-dark">{{val4|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">60 Lacs - 90 Lacs</div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>30</b></div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark">{{val9|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">{{val14|floatformat}}</div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs2 border-bottom border-dark">{{val5|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">Above 90 Lacs</div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>38</b></div>
+                    <div class="col-3 text-center fs2 border-start border-bottom border-dark">{{val10|floatformat}}</div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">{{val15|floatformat}}</div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs3 border-bottom border-dark"><b>{{tot4|floatformat}}</b></div>
+                    <div class="col-5 text-center fs3 border-start border-bottom border-dark"></div>
+                    <div class="col-3 text-center fs3 border-start border-bottom border-dark"><b>{{tot5|floatformat}}</b></div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark"><b>{{tot6|floatformat}}</b></div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs1 border-bottom border-dark"><b>ADD</b></div>
+                    <div class="col-5 text-center fs1 border-start border-bottom border-dark"><b>COMMON EXPENSES PAID BY SCC AND OOPL RESP.</b></div>
+                    <div class="col-3 text-center fs3 border-start border-bottom border-dark"><b>{{tot7|floatformat}}</b></div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark"><b>{{tot8|floatformat}}</b></div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs1 border-bottom border-dark"><b>LESS</b></div>
+                    <div class="col-5 text-center fs1 border-start border-bottom border-dark"><b>ADVANCE RECEIVED BY SCC AND OOPL RESP.</b></div>
+                    <div class="col-3 text-center fs3 border-start border-bottom border-dark"><b>{{tot1|floatformat}}</b></div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark"><b>{{tot1_oopl|floatformat}}</b></div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-2 text-center fs1 border-bottom border-dark"><b></b></div>
+                    <div class="col-5 text-center fs1 border-start border-bottom border-dark"><b></b></div>
+                    <div class="col-3 text-center fs3 border-start border-bottom border-dark"><b>{{tot9|floatformat}}</b></div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark"><b>{{tot10|floatformat}}</b></div>
+                </div>
+                {% if additional_income_total %}
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 border-bottom border-dark">
+                            <b>
+                                {% if additional_income_desc %}
+                                    {{additional_income_desc}}
+                                {% else %}
+                                    Additional Income (SCC)
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if s_scc %}
+                                    SCC-{{s_scc}}%
+                                {% else %}
+                                    SCC-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if o_scc %}
+                                    OOPL-{{o_scc}}%
+                                {% else %}
+                                    OOPL-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_add_in_scc %}
+                                    {{oopl_add_in_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_add_in_scc %}
+                                    {{oopl_add_in_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 bg2 border-bottom border-dark">
+                            <b>
+                                {% if additional_income_total %}
+                                    {{additional_income_total|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_add_in_scc %}
+                                    {{scc_add_in_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_add_in_scc %}
+                                    {{oopl_add_in_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot11 %}
+                                    {{tot11|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot12 %}
+                                    {{tot12|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if additional_income_oopl_total %}
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 border-bottom border-dark">
+                            <b>
+                                {% if additional_income_oopl_desc %}
+                                    {{additional_income_oopl_desc}}
+                                {% else %}
+                                    Additional Income (OOPL)
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if s_oopl %}
+                                    SCC-{{s_oopl}}%
+                                {% else %}
+                                    SCC-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if o_oopl %}
+                                    OOPL-{{o_oopl}}%
+                                {% else %}
+                                    OOPL-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_add_in_oopl %}
+                                    {{scc_add_in_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_add_in_oopl %}
+                                    {{scc_add_in_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 bg2 border-bottom border-dark">
+                            <b>
+                                {% if additional_income_oopl_total %}
+                                    {{additional_income_oopl_total|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_add_in_oopl %}
+                                    {{scc_add_in_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_add_in_oopl %}
+                                    {{oopl_add_in_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot13 %}
+                                    {{tot13|floatformat}}
+                                {% elif tot11 %}
+                                    {{tot11|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot14 %}
+                                    {{tot14|floatformat}}
+                                {% elif tot12 %}
+                                    {{tot12|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if other_expenses_total %}
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 border-bottom border-dark">
+                            <b>
+                                {% if other_expenses_desc %}
+                                    {{other_expenses_desc}}
+                                {% else %}
+                                    Other Expenses (SCC)
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if s_scc_ot %}
+                                    SCC-{{s_scc_ot}}%
+                                {% else %}
+                                    SCC-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if o_scc_ot %}
+                                    OOPL-{{o_scc_ot}}%
+                                {% else %}
+                                    OOPL-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_ot_exp_scc %}
+                                    {{oopl_ot_exp_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_ot_exp_scc %}
+                                    {{oopl_ot_exp_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 bg2 border-bottom border-dark">
+                            <b>
+                                {% if other_expenses_total %}
+                                    {{other_expenses_total|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_ot_exp_scc %}
+                                    {{scc_ot_exp_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_ot_exp_scc %}
+                                    {{oopl_ot_exp_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot15 %}
+                                    {{tot15|floatformat}}
+                                {% elif tot13 %}
+                                    {{tot13|floatformat}}
+                                {% elif tot11 %}
+                                    {{tot11|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot16 %}
+                                    {{tot16|floatformat}}
+                                {% elif tot14 %}
+                                    {{tot14|floatformat}}
+                                {% elif tot12 %}
+                                    {{tot12|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if other_expenses_oopl_total %}
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 border-bottom border-dark">
+                            <b>
+                                {% if other_expenses_oopl_desc %}
+                                    {{other_expenses_oopl_desc}}
+                                {% else %}
+                                    Other Expenses (OOPL)
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if s_oopl_ot %}
+                                    SCC-{{s_oopl_ot}}%
+                                {% else %}
+                                    SCC-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if o_oopl_ot %}
+                                    OOPL-{{o_oopl_ot}}%
+                                {% else %}
+                                    OOPL-50%
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_ot_exp_oopl %}
+                                    {{scc_ot_exp_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_ot_exp_oopl %}
+                                    {{scc_ot_exp_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 bg2 border-bottom border-dark">
+                            <b>
+                                {% if other_expenses_oopl_total %}
+                                    {{other_expenses_oopl_total|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if scc_ot_exp_oopl %}
+                                    {{scc_ot_exp_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if oopl_ot_exp_oopl %}
+                                    {{oopl_ot_exp_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot17 %}
+                                    {{tot17|floatformat}}
+                                {% elif tot15 %}
+                                    {{tot15|floatformat}}
+                                {% elif tot13 %}
+                                    {{tot13|floatformat}}
+                                {% elif tot11 %}
+                                    {{tot11|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot18 %}
+                                    {{tot18|floatformat}}
+                                {% elif tot16 %}
+                                    {{tot16|floatformat}}
+                                {% elif tot14 %}
+                                    {{tot14|floatformat}}
+                                {% elif tot12 %}
+                                    {{tot12|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if tot_opd %}
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 border-bottom border-dark"><b>OPD WITH SCC</b></div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark"><b>SCC-20%</b></div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark"><b>OOPL-80%</b></div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot_opd_oopl %}
+                                    {{tot_opd_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot_opd_oopl %}
+                                    {{tot_opd_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row bg-light">
+                        <div class="col-2 text-center fs2 bg2 border-bottom border-dark">
+                            <b>
+                                {% if tot_opd %}
+                                    {{tot_opd|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot_opd_scc %}
+                                    {{tot_opd_scc|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot_opd_oopl %}
+                                    {{tot_opd_oopl|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-3 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot19 %}
+                                    {{tot19|floatformat}}
+                                {% elif tot17 %}
+                                    {{tot17|floatformat}}
+                                {% elif tot15 %}
+                                    {{tot15|floatformat}}
+                                {% elif tot13 %}
+                                    {{tot13|floatformat}}
+                                {% elif tot11 %}
+                                    {{tot11|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                        <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                            <b>
+                                {% if tot20 %}
+                                    {{tot20|floatformat}}
+                                {% elif tot18 %}
+                                    {{tot18|floatformat}}
+                                {% elif tot16 %}
+                                    {{tot16|floatformat}}
+                                {% elif tot14 %}
+                                    {{tot14|floatformat}}
+                                {% elif tot12 %}
+                                    {{tot12|floatformat}}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </b>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row bg-light">
+                    <div class="col-10 text-center fs2 border-bottom border-dark">
+                        <b>
+                            TDS [10%]
+                        </b>
+                    </div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                        <b>
+                            {% if tds %}
+                                {{tds|floatformat}}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </b>
+                    </div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-10 text-center fs2 border-bottom border-dark">
+                        <b>
+                            NET PAYABLE AFTER TDS
+                        </b>
+                    </div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                        <b>
+                            {% if net %}
+                                {{net|floatformat}}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </b>
+                    </div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-10 text-center fs2 border-bottom border-dark">
+                        <b>
+                            ADVANCE RECEIVED BY OOPL
+                        </b>
+                    </div>
+                    <div class="col-2 text-center fs2 border-start border-bottom border-dark">
+                        <b>
+                            {% if tot1_oopl %}
+                                {{tot1_oopl|floatformat}}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </b>
+                    </div>
+                </div>
+                <div class="row bg1">
+                    <div class="col-10 text-center fs3 border-bottom border-dark">
+                        <b>
+                            PAYABLE AMOUNT (AFTER TDS AND ADVANCES)
+                        </b>
+                    </div>
+                    <div class="col-2 text-center fs3 border-start border-bottom border-dark">
+                        <b>
+                            {% if final_amount %}
+                                {{final_amount|floatformat:'0'}}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </b>
+                    </div>
+                </div>
+                <div class="row bg-light">
+                    <div class="col-12 text-center fs2 border-bottom border-dark">
+                        <b>
+                            Company PAN : AACCO3789M, email id. accounts@optimusoncology.com, mobile no. 8999250794, BANK DETAILS:Optimus Oncology Private Limited,HDFC(Suyojit Sankul,Nashik),  A/C NO.:50200021888130,<br> IFSC CODE::HDFC0001246 (5/6/7th Character is zero)
+                        </b>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <b>
+                            <a href="{% url 'solapur:export_provisional_bill' %}" class="btn btn-warning btn-sm">Export</a><br><br>
+                        </b>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock bills %}

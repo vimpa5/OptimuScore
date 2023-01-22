@@ -1,0 +1,153 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Petty Cash Book{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.withdrawal__voucher_number.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.withdrawal__voucher_number}}<span class="bg-warning text-dark">{{myFilter.form.withdrawal__voucher_number.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.withdrawal__particulars.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.withdrawal__particulars}}<span class="bg-warning text-dark">{{myFilter.form.withdrawal__particulars.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Book</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-1 text-center border-start border-top border-light border-bottom border-end"><i class="fas fa-calendar text-warning"></i></div>
+                    <div class="col-2 text-center border-top border-light border-bottom border-end"><i class="fas fa-bars text-warning"></i></div>
+                    <div class="col-4 text-center text-warning border-top border-light border-bottom border-end"><b>AMOUNT</b></div>
+                    <div class="col-2 text-center text-warning border-top border-light"><b>REFERENCE</b></div>
+                    <div class="col-1 text-center border-top border-light border-bottom border-start border-end"><i class="fas fa-wallet text-warning"></i></div>
+                    <div class="col-2 text-center text-warning border-top border-light border-bottom border-end"><b>SUPPORTED BY</b></div>
+                </div>
+                <div class="row bg1">
+                    <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start"><b>DATE</b></div>
+                    <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start"><b>PARTICULARS</b></div>
+                    <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start"><b>IN</b></div>
+                    <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start"><b>OUT</b></div>
+                    <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start"><b>BILL NO.</b></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom border-end border-start"><b>VOUCHER NO.</b></div>
+                    <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start"><b>BALANCE</b></div>
+                    <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start"><b>IMAGE</b></div>
+                    <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start"><b>FILE</b></div>
+                </div>
+                {% for rp in report %}
+                    {% if rp.piggybank.date %}
+                        <div class="row">
+                            <div class="col-1 text-center border-top border-dark border-bottom border-end border-start">{{rp.piggybank.date}}</div>
+                            <div class="col-2 text-center border-top border-dark border-bottom border-end border-start">Deposited by {{rp.piggybank.depositor}}</div>
+                            <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.piggybank.amount}}</div>
+                            <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start">--</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">N/A</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">N/A</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.balance}}</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">N/A</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">N/A</div>
+                        </div>
+                    {% elif rp.withdrawal.amount %}
+                        <div class="row">
+                            <div class="col-1 text-center border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.date}}</div>
+                            <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.particulars}}</div>
+                            <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start">--</div>
+                            <div class="col-2 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.amount}}</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.bill_number}}</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.voucher_number}}</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">{{rp.withdrawal.balance}}</div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">
+                                {% if rp.withdrawal.image %} 
+                                    <a href="{{rp.withdrawal.image.url}}" class="btn btn-primary btn-sm">View</a> 
+                                {% else %} 
+                                    No Image 
+                                {% endif %}
+                            </div>
+                            <div class="col-1 text-center txt border-top border-dark border-bottom border-end border-start">
+                                {% if rp.withdrawal.docs %} 
+                                    <a href="{{rp.withdrawal.docs.url}}" class="btn btn-primary btn-sm">Download</a> 
+                                {% else %} 
+                                    No File 
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="row">
+                    <div class="col-1 text-center border-top border-dark border-bottom border-start"></div>
+                    <div class="col-2 text-center border-top border-dark border-bottom border-end"></div>
+                    <div class="col-2 text-center border-top border-dark border-bottom border-end border-start bg1"><b>&#8377;{{total1.piggybank__amount__sum|floatformat}}</b></div>
+                    <div class="col-2 text-center border-top border-dark border-bottom border-end border-start bg1"><b>&#8377;{{total2.withdrawal__amount__sum|floatformat}}</b></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom border-start"></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom"></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom"></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom"></div>
+                    <div class="col-1 text-center border-top border-dark border-bottom border-end"></div>
+                </div>
+            </div><br><br>
+        </div>
+    </div>
+{% endblock table %}
+{% block export %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center">
+                <a href="{% url 'solapur:export_petty_cash_report' %}" class="btn btn-warning btn-sm text-dark">Export</a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock export %}

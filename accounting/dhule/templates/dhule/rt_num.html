@@ -1,0 +1,33 @@
+<script>
+    $(document).ready(function(){
+        $('#id_patient').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected  = optionSelected.val();
+            var textSelected   = optionSelected.text();
+            console.log('pt: ', textSelected);
+            $('#id_patient_type').change(function(){
+                var pttoptionSelected = $(this).find("option:selected");
+                var pttvalueSelected  = pttoptionSelected.val();
+                var ptttextSelected   = pttoptionSelected.text();
+                console.log('ptt: ', ptttextSelected);
+                var csr = $("input[name=csrfmiddlewaretoken]").val();
+                console.log('hua')
+                ct={patient:textSelected, patient_type:ptttextSelected, csrfmiddlewaretoken:csr}
+                $.ajax({
+                    url:"{% url 'dhule:pt_name_rt' %}",
+                    method: "POST",
+                    data: ct,
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        console.log(data.rt);
+                        var rt=data.rt;
+                        var fm_rt=document.getElementById('id_rt_number');
+                        fm_rt.value=rt;
+                        console.log('fm_rt: ', fm_rt.value);
+                    }
+                });
+            });
+        });
+    });
+</script>

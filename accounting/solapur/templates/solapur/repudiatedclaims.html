@@ -1,0 +1,188 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Repudiated Claims' Track Report{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.ipdreport__patient__name.label_tag}}</span>
+                    </div>
+                    <div class="col-10">
+                        {{myFilter.form.ipdreport__patient__name}}<span class="bg-warning text-dark">{{myFilter.form.ipdreport__patient__name.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">ID</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Name</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Patient Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">MR/UID</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Diagnosis</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Treatment Type</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Patient Category</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Admission Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Maximum Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Total Package</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Discount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Approved Package</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Proposed Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">RT Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Radiotherapy Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Done Fractions</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Base Value</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Expected Value</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Discharge Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount Received</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Billing Month</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Deficit or Surplus Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Deificit Percentage</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Surplus Percentage</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Cash/Partial Cash</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.ipdreport.track_id}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">
+                                {% if rp.ipdreport.ipdreport.patient.title == '0' %}
+                                    Mr.&#160;{{rp.ipdreport.patient.name}}
+                                {% elif rp.ipdreport.ipdreport.patient.title == '1' %}
+                                    Mrs.&#160;{{rp.ipdreport.patient.name}}
+                                {% elif rp.ipdreport.ipdreport.patient.title == '2' %}
+                                    Ms.&#160;{{rp.ipdreport.patient.name}}
+                                {% elif rp.ipdreport.ipdreport.patient.title == '3' %}
+                                    Mast.&#160;{{rp.ipdreport.patient.name}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.ipdreport.patient.patient_number}}</td>
+                            <td class="p-2">{{rp.ipdreport.patient.mr_uid}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.diagnosis}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.treatment}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.patient_type}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.date_of_admission}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.max_fractions}}</td>
+                            <td class="p-2">{{rp.ipdreport.package.total_package}}</td>
+                            <td class="p-2">{{rp.ipdreport.approvedpackage.discount}}</td>
+                            <td class="p-2">{{rp.ipdreport.approvedpackage.approved_package}}</td>
+                            <td class="p-2">{{rp.ipdreport.approvedpackage.proposed_fractions}}</td>
+                            <td class="p-2">{{rp.ipdreport.ctscan.rt_number}}</td>
+                            <td class="p-2">{{rp.ipdreport.radiations.date}}</td>
+                            <td class="p-2">{{rp.ipdreport.radiations.done_fractions}}</td>
+                            <td class="p-2">
+                                {% if rp.ipdreport.package.patient_type.patient_type == 'CASH' or rp.ipdreport.realization.cash == True %}
+                                    -- 
+                                {% else %}
+                                    {{rp.ipdreport.radiations.base_value}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">
+                                {% if rp.ipdreport.package.patient_type.patient_type == 'CASH' or rp.ipdreport.realization.cash == True %}
+                                    -- 
+                                {% else %}
+                                    {% if rp.ipdreport.radiations.expected_value < 0 %} 
+                                        {{rp.ipdreport.radiations.expected_value|abs}} 
+                                    {% else %} 
+                                        {{rp.ipdreport.radiations.expected_value}} 
+                                    {% endif %} 
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.ipdreport.discharge.date_of_discharge}}</td>
+                            <td class="p-2">{{rp.ipdreport.realization.amount_received}}</td>
+                            <td class="p-2">{{rp.ipdreport.realization.billing_month}}</td>
+                            <td class="p-2">
+                                {% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %}
+                                    --
+                                {% else %}
+                                    {{rp.ipdreport.realization.deficit_or_surplus_amount}}
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %} -- {% else %} {{rp.ipdreport.realization.deficit_percentage|floatformat}} {% endif %}</td>
+                            <td class="p-2">{% if rp.ipdreport.package.patient_type.patient_type == "CASH" or rp.ipdreport.realization.cash == True %} -- {% else %} {{rp.ipdreport.realization.surplus_percentage|floatformat}} {% endif %}</td>
+                            <td class="p-2">{% if rp.ipdreport.realization.cash == True %} Yes {% elif rp.ipdreport.realization.cash == False %} No {% elif rp.ipdreport.realization.cash == None %}  {% endif %}</td>
+                            <td class="p-2">
+                                <form action="{% url 'dhule:to_reclaim' rp.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Reclaimed">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block export %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center">
+                <a href="{% url 'solapur:export_repudiated_report' %}" class="btn btn-warning btn-sm text-dark">Export</a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock export %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

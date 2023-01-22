@@ -1,0 +1,82 @@
+{% extends 'account/center_form_base.html' %}
+{% load static %}
+{% block title %}Update Approved Package{% endblock title %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.patient.label_tag}}</span>
+                        </div>
+                        <div class="col-10">
+                            {{form.patient}}<span class="bg-warning text-dark">{{form.patient.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.patient_type.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.patient_type}}<span class="bg-warning text-dark">{{form.patient_type.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.discount.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.discount}}<span class="bg-warning text-dark">{{form.discount.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.approved_package.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.approved_package}}<span class="bg-warning text-dark">{{form.approved_package.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.approval_date.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.approval_date}}<span class="bg-warning text-dark">{{form.approval_date.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.proposed_fractions.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.proposed_fractions}}<span class="bg-warning text-dark">{{form.proposed_fractions.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.remarks.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.remarks}}<span class="bg-warning text-dark">{{form.remarks.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-6 text-end p-2">
+                            <input class="btn btn-warning btn-sm text-dark" type="submit" value="Save">
+                        </div>
+                        <div class="col-6 text-start p-2">
+                            <a href="{% url 'dhule:approved_package_report' %}" class="btn btn-warning btn-sm text-dark">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}
+{% block inclusion %}
+    {% include "dhule/app_pkg_up.html" %}
+{% endblock inclusion %}

@@ -1,0 +1,35 @@
+<script>
+    $(document).ready(function () {
+        console.log('Hello')
+        var optionSelected = $('select').find("option:selected");
+        var valueSelected  = optionSelected.val();
+        var textSelected   = optionSelected.text();
+        var csr = $("input[name=csrfmiddlewaretoken]").val();
+        console.log(textSelected);
+            console.log('hua')
+            pkg={patient:textSelected, csrfmiddlewaretoken:csr}
+            $.ajax({
+                url:"{% url 'dhule:pt_name' %}",
+                method: "POST",
+                data: pkg,
+                dataType: "json",
+                success: function(data){
+                    console.log(data);
+                    console.log(data.pkg);
+                    console.log(data.ptt);
+                    var tp=data.pkg;
+                    var ptt=data.ptt;
+                    $('#id_discount').change(function(){
+                        console.log('tp value: ', tp);
+                        console.log('ptt value: ', ptt);
+                        var discount=document.getElementById('id_discount').value;
+                        console.log('discount value: ', discount);
+                        var approved_package=document.getElementById('id_approved_package');
+                        if (ptt=='CASH')
+                        approved_package.value=tp-discount;
+                        console.log('approved package new value: ', approved_package.value);
+                    });
+                }
+            });
+    });
+</script>

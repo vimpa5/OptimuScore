@@ -1,0 +1,76 @@
+{% extends 'account/center_form_base2.html' %}
+{% load static %}
+{% block title %}OPD Cash-flow Form{% endblock title %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.opd_particulars.label_tag}}</span>
+                        </div>
+                        <div class="col-10">
+                            {{form.opd_particulars}}<span class="bg-warning text-dark">{{form.opd_particulars.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.date.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.date}}<span class="bg-warning text-dark">{{form.date.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.source.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.source}}<span class="bg-warning text-dark">{{form.source.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.case_number.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.case_number}}<span class="bg-warning text-dark">{{form.case_number.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.mode.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.mode}}<span class="bg-warning text-dark">{{form.mode.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.cash_out.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.cash_out}}<span class="bg-warning text-dark">{{form.cash_out.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.remarks.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.remarks}}<span class="bg-warning text-dark">{{form.remarks.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col text-center">
+                            <input class="submitbtn" type="submit" value="Save">
+                        </div>
+                    </div><br>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}

@@ -1,0 +1,31 @@
+{% extends 'account/auth_forms_base.html' %}
+{% block title %}Change Password{% endblock title %}
+{% block formcontent %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            {{error}}
+        {% endfor %}
+    {% endif %}
+    {% for fm in form %}
+        {{fm.label_tag}} {{fm}} {{fm.error|striptags}} <br><br>
+    {% endfor %}
+{% endblock formcontent %}
+{% block loginbtn %}
+    <input class="submitbtn" type="submit" value="Save">
+{% endblock loginbtn %}
+{% block outerlink %}
+    {% if form.location.value == 'Dhule' %}
+      <small style="margin-top: 5px;"><a href="{% url 'dhulehome' %}" class="signuptag">Back</a></small>
+    {% elif form.location.value == 'Solapur' %}
+      <small style="margin-top: 5px;"><a href="{% url 'solapurhome' %}" class="signuptag">Back</a></small>
+    {% else %}
+      <small style="margin-top: 5px;"><a href="{% url 'adminhome' %}" class="signuptag">Back</a></small>
+    {% endif %}
+{% endblock outerlink %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}

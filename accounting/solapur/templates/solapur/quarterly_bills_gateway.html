@@ -1,0 +1,39 @@
+{% extends 'account/center_form_base2.html' %}
+{% load static %}
+{% block title %}Quarterly Bill Gateway{% endblock title %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.choose_quarter.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.choose_quarter}}<span class="bg-warning text-dark">{{form.choose_quarter.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.choose_financial_year.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.choose_financial_year}}<span class="bg-warning text-dark">{{form.choose_financial_year.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.billing_date.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            {{form.billing_date}}<span class="bg-warning text-dark">{{form.billing_date.errors|striptags}}</span>
+                        </div>
+                        <div class="col-5 offset-1 text-start pt-2">
+                            <input class="btn btn-warning btn-sm text-dark" type="submit" value="Go">
+                        </div>
+                    </div><br>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}

@@ -1,0 +1,162 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}CT Scan Reports{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.patient__name.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.patient__name}}<span class="bg-warning text-dark">{{myFilter.form.patient__name.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.rt_number.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.rt_number}}<span class="bg-warning text-dark">{{myFilter.form.rt_number.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.conducted_by.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.conducted_by}}<span class="bg-warning text-dark">{{myFilter.form.conducted_by.errors|striptags}}</span>
+                    </div>
+                    <div class="col-6 text-center pt-2">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div><br>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">Patient</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Patient Type</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Patient Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">RT Number</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Conducted By</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Created On</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in page_obj %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">
+                                {% if rp.patient.title == '0' %}
+                                    Mr.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '1' %}
+                                    Mrs.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '2' %}
+                                    Ms.&#160;{{rp.patient.name}}
+                                {% elif rp.patient.title == '3' %}
+                                    Mast.&#160;{{rp.patient.name}}
+                                {% endif %}
+                            </td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">{{rp.patient_type.patient_type}}</td>
+                            <td class="p-2">{{rp.patient.patient_number}}</td>
+                            <td class="p-2">{{rp.rt_number}}</td>
+                            <td class="p-2">{{rp.amount}}</td>
+                            <td class="p-2">{{rp.date}}</td>
+                            <td class="p-2">
+                                {% if rp.conducted_by == 'k' %}
+                                    KCC
+                                {% elif rp.conducted_by == 'o' %}
+                                    OOPL
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.ctscan_date}}</td>
+                            <td class="p-2">
+                                <a href="{% url 'solapur:update_ct_report' rp.id %}"><abbr title="Edit"><i class="fas fa-pen-to-square text-warning"></i></abbr></a>&nbsp;&nbsp;
+                                    <form action="{% url 'solapur:ct_report_delete' rp.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-secondary btn-sm text-warning">
+                                    </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-light">
+                        <td class="col-id-no text-warning text-center" scope="row"><b>Totals:</b></td>
+                        <td class="col-name" scope="row"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2 text-warning text-center"><b>&#8377;{{total.amount__sum|floatformat}}</b></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}
+{% block export %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center">
+                <a href="{% url 'solapur:export_ctscan_report' %}" class="btn btn-warning btn-sm text-dark">Export</a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock export %}
+{% block pagination %}
+    <span>
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="link-success"><=Previous</a>
+        {% endif %}
+        <span class="btn btn-success btn-sm">{{page_obj.number}}</span>
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="link-success">Next=></a>
+        {% endif %}
+    </span>
+{% endblock pagination %}

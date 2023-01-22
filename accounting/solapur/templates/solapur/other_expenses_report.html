@@ -1,0 +1,123 @@
+{% extends 'account/report_base2.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Other Expenses Report{% endblock title %}
+{% if myFilter %}
+    {% block filter %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Data-Filter</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-start border border-warning p-4">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.particulars.label_tag}}</span>
+                    </div>
+                    <div class="col-10">
+                        {{myFilter.form.particulars}}<span class="bg-warning text-dark">{{myFilter.form.particulars.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.from_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.from_date}}<span class="bg-warning text-dark">{{myFilter.form.from_date.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.to_date.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.to_date}}<span class="bg-warning text-dark">{{myFilter.form.to_date.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.amount.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.amount}}<span class="bg-warning text-dark">{{myFilter.form.amount.errors|striptags}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-light">{{myFilter.form.paid_by.label_tag}}</span>
+                    </div>
+                    <div class="col-4">
+                        {{myFilter.form.paid_by}}<span class="bg-warning text-dark">{{myFilter.form.paid_by.errors|striptags}}</span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-warning btn-sm text-dark">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {% endblock filter %}
+{% endif %}
+{% block table %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-2 home text-center rounded">
+                <span class="bg-dark"><h6 class="text-warning pt-2">Report</h6></span>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    <div class="container" style="height: auto; overflow: auto;">
+        <div class="row">
+            <table class="freeze-table" width="700px">
+                <thead>
+                    <tr class="text-center text-light border-top border-white">
+                        <th style="min-width: 100px; width: 100px;" class="col-id-no fixed-header p-2">Particulars</th>
+                        <th style="min-width: 100px; width: 100px;" class="col-name fixed-header p-2">Date</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Paid By</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Amount</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Created On</th>
+                        <th class="p-2" style="min-width: auto; width: auto;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rp in report %}
+                        <tr class="text-center text-light">
+                            <td class="col-id-no text-dark text-start fw-bold p-2" scope="row">{{rp.particulars}}</td>
+                            <td class="col-name text-dark fw-bold p-2" scope="row">{{rp.date}}</td>
+                            <td class="p-2">
+                                {% if rp.paid_by == 's' %}
+                                    SCC
+                                {% elif rp.paid_by == 'o' %}
+                                    OOPL
+                                {% endif %}
+                            </td>
+                            <td class="p-2">{{rp.amount}}</td>
+                            <td class="p-2">{{rp.created_on}}</td>
+                            <td class="p-2">
+                                <a href="{% url 'solapur:update_other_expenses' rp.id %}"><i class="fas fa-pen-to-square text-warning"></i></a>
+                                <form action="{% url 'solapur:other_expenses_delete' rp.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm text-light">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-light">
+                        <td class="col-id-no text-warning text-center" scope="row"><b>Total:</b></td>
+                        <td class="col-name" scope="row"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2 text-warning text-center"><b>&#8377;{{total.amount__sum|floatformat}}</b></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock table %}

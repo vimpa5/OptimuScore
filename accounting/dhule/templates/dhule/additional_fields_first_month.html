@@ -1,0 +1,307 @@
+{% extends 'account/center_form_base.html' %}
+{% load static %}
+{% block title %}Optional Fields - 1st Month{% endblock title %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container-fluid text-start border border-warning p-4 mt-5 shadow-lg rounded">
+            <div class="row">
+                <div class="col-2 offset-4">
+                    <span class="text-light">{{form.change_amount_credited_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_amount_credited_first_month}}<span class="bg-warning text-dark">{{form.change_amount_credited_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_desc_first_month}}<span class="bg-warning text-dark">{{form.change_rt_cash_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_amount_first_month}}<span class="bg-warning text-dark">{{form.change_rt_cash_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_rt_cash_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_rt_cash_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_rt_cash_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_rt_cash_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_desc_first_month}}<span class="bg-warning text-dark">{{form.change_partial_cash_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_amount_first_month}}<span class="bg-warning text-dark">{{form.change_partial_cash_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_partial_cash_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_partial_cash_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_partial_cash_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_partial_cash_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_desc_first_month}}<span class="bg-warning text-dark">{{form.change_mjpjay_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_amount_first_month}}<span class="bg-warning text-dark">{{form.change_mjpjay_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_mjpjay_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mjpjay_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mjpjay_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_mjpjay_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_desc_first_month}}<span class="bg-warning text-dark">{{form.change_pmjay_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_amount_first_month}}<span class="bg-warning text-dark">{{form.change_pmjay_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_pmjay_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_pmjay_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_pmjay_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_pmjay_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_desc_first_month}}<span class="bg-warning text-dark">{{form.change_police_file_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_amount_first_month}}<span class="bg-warning text-dark">{{form.change_police_file_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_police_file_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_police_file_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_police_file_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_police_file_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_desc_first_month}}<span class="bg-warning text-dark">{{form.change_insurance_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_amount_first_month}}<span class="bg-warning text-dark">{{form.change_insurance_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_insurance_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_insurance_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_insurance_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_insurance_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_desc_first_month}}<span class="bg-warning text-dark">{{form.change_other_income_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_amount_first_month}}<span class="bg-warning text-dark">{{form.change_other_income_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_other_income_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_income_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_income_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_other_income_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_kcc_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_kcc_desc_first_month}}<span class="bg-warning text-dark">{{form.change_ct_kcc_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_kcc_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_kcc_amount_first_month}}<span class="bg-warning text-dark">{{form.change_ct_kcc_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_ct_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_ct_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_ct_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_ct_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_mould_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_oopl_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_oopl_amount_first_month}}<span class="bg-warning text-dark">{{form.change_mould_oopl_amount_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_kcc_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_kcc_desc_first_month}}<span class="bg-warning text-dark">{{form.change_mould_kcc_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_mould_kcc_amount_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_mould_kcc_amount_first_month}}<span class="bg-warning text-dark">{{form.change_mould_kcc_amount_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_additional_income_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_additional_income_desc_first_month}}<span class="bg-warning text-dark">{{form.change_additional_income_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.kcc_share_add_in1_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.kcc_share_add_in1_first_month}}<span class="bg-warning text-dark">{{form.kcc_share_add_in1_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_additional_income_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_additional_income_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_additional_income_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.kcc_share_add_in2_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.kcc_share_add_in2_first_month}}<span class="bg-warning text-dark">{{form.kcc_share_add_in2_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_expenses_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_expenses_desc_first_month}}<span class="bg-warning text-dark">{{form.change_other_expenses_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.kcc_share_other_expenses1_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.kcc_share_other_expenses1_first_month}}<span class="bg-warning text-dark">{{form.kcc_share_other_expenses1_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.change_other_expenses_oopl_desc_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.change_other_expenses_oopl_desc_first_month}}<span class="bg-warning text-dark">{{form.change_other_expenses_oopl_desc_first_month.errors|striptags}}</span>
+                </div>
+                <div class="col-1">
+                    <span class="text-light">{{form.kcc_share_other_expenses2_first_month.label_tag}}</span>
+                </div>
+                <div class="col-2">
+                    {{form.kcc_share_other_expenses2_first_month}}<span class="bg-warning text-dark">{{form.kcc_share_other_expenses2_first_month.errors|striptags}}</span>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col text-center p-2">
+                    <input class="btn btn-warning btn-sm text-dark" type="submit" value="Proceed">
+                </div>
+            </div>
+        </div>
+{% endblock mainform %}

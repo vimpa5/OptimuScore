@@ -1,0 +1,87 @@
+{% extends 'account/center_form_base2.html' %}
+{% load static %}
+{% block title %}Update Patients' Profile{% endblock title %}
+{% if messages %}
+    {% block messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endblock messages %}
+{% endif %}
+{% block mainform %}
+    {{form.non_field_errors}}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 text-start border border-warning p-4">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.opdcashsheet.label_tag}}</span>
+                        </div>
+                        <div class="col-3">
+                            {{form.opdcashsheet}}<span class="bg-warning text-dark">{{form.opdcashsheet.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2 offset-1">
+                            <span class="text-light">{{form.date.label_tag}}</span>
+                        </div>
+                        <div class="col-3">
+                            {{form.date}}<span class="bg-warning text-dark">{{form.date.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.amount.label_tag}}</span>
+                        </div>
+                        <div class="col-10">
+                            {{form.amount}}<span class="bg-warning text-dark">{{form.amount.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.bank.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="rounded">{{form.bank}}</span><span class="bg-warning text-dark">{{form.bank.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.mode.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="rounded">{{form.mode}}</span><span class="bg-warning text-dark">{{form.mode.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.bank_ac.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="rounded">{{form.bank_ac}}</span><span class="bg-warning text-dark">{{form.bank_ac.errors|striptags}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-light">{{form.branch.label_tag}}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="rounded">{{form.branch}}</span><span class="bg-warning text-dark">{{form.branch.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-light">{{form.remarks.label_tag}}</span>
+                        </div>
+                        <div class="col-10">
+                            <span class="rounded">{{form.remarks}}</span><span class="bg-warning text-dark">{{form.remarks.errors|striptags}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-6 text-end p-2">
+                            <input class="btn btn-warning btn-sm text-dark" type="submit" value="Save">
+                        </div>
+                        <div class="col-6 text-start p-2">
+                            <a href="{% url 'solapur:bank_deposits_report' %}" class="btn btn-warning btn-sm text-dark">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+{% endblock mainform %}

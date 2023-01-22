@@ -1,0 +1,58 @@
+{% extends 'account/auth_forms_base.html' %}
+{% block title %}Sign-up{% endblock title %}
+{% block formcontent %}
+    {{form.non_field_errors}}
+    <div class="row">
+        <div class="col">
+            {{form.username.label_tag}} {{form.username}} <span class="bg-warning">{{form.username.errors|striptags}}</span>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+            {{form.first_name.label_tag}} {{form.first_name}} <span class="bg-warning">{{form.first_name.errors|striptags}}</span>
+        </div>
+        <div class="col">
+            {{form.last_name.label_tag}} {{form.last_name}} <span class="bg-warning">{{form.last_name.errors|striptags}}</span>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+            {{form.email.label_tag}} {{form.email}} <span class="bg-warning">{{form.email.errors|striptags}}</span>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+            {{form.location.label_tag}} {{form.location}} <span class="bg-warning">{{form.location.errors|striptags}}</span>
+        </div>
+        <div class="col">
+            {{form.designation.label_tag}} {{form.designation}} <span class="bg-warning">{{form.designation.errors|striptags}}</span>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+            {{form.password1.label_tag}} {{form.password1}} <span class="bg-warning">{{form.password1.errors|striptags}}</span>
+        </div>
+        <div class="col">
+            {{form.password2.label_tag}} {{form.password2}} <span class="bg-warning">{{form.password2.errors|striptags}}</span>
+        </div>
+    </div><br>
+{% endblock formcontent %}
+{% block loginbtn %}
+    <input class="submitbtn" type="submit" value="Register">
+{% endblock loginbtn %}
+{% block outerlink %}
+    {% if form.location.value == 'Dhule' %}
+      <small style="margin-top: 5px;"><a href="{% url 'dhulehome' %}" class="signuptag">Back</a></small>
+    {% elif form.location.value == 'Solapur' %}
+      <small style="margin-top: 5px;"><a href="{% url 'solapurhome' %}" class="signuptag">Back</a></small>
+    {% else %}
+      <small style="margin-top: 5px;"><a href="{% url 'adminhome' %}" class="signuptag">Back</a></small>
+    {% endif %}
+{% endblock outerlink %}
+{% block messages %}
+    {% if messages %}
+        {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+        {% endfor %}
+    {% endif %}
+{% endblock messages %}
