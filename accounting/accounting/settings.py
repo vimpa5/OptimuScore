@@ -78,15 +78,25 @@ WSGI_APPLICATION = 'accounting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'accounting',
-        'USER': 'sonu',
-        'PASSWORD': '5@@1_0n',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'accounting',
+#         'USER': 'sonu',
+#         'PASSWORD': '5@@1_0n',
+#     }
+# }
 
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': 'postgres',
+            'PASSWORD': 'GBWQnBxsgphhvXUsPVwj',
+            'HOST': 'containers-us-west-195.railway.app',
+            'PORT': '7911',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
