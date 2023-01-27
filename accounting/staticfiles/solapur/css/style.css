@@ -1,0 +1,53 @@
+.bdr1{
+    border: 1px solid black
+}
+
+.bdr2{
+    border: 1px solid black
+}
+
+.bdr3{
+    border-left: 1px solid black;
+}
+
+.fs1{
+    font-size: 85%;
+}
+
+.fs5{
+    font-size: 75%;
+}
+
+.fs2{
+    font-size: 70%;
+    font-weight: 500;
+}
+
+.fs4{
+    font-size: 55%;
+    font-weight: 500;
+}
+
+.fs3{
+    font-size: 95%;
+}
+
+.bg1{
+    background-color: #DCDCDC;
+}
+
+.bg2{
+    background-color: #FFFF00;
+}
+
+.bg3{
+    background-color: #FFFACD;
+}
+
+.txt {
+    padding: 1%;
+  }
+
+.blank_div {
+    height: 1%;
+}

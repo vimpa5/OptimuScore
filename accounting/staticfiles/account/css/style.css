@@ -1,0 +1,103 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.forbody{
+    background:url(/static/account/images/body.jpg) no-repeat center fixed;
+    background-size:cover;
+    /* color: antiquewhite; */
+}
+
+.forbasebody{
+    background-color: #2F4F4F;
+}
+
+.login{
+    background-color: #53868B;
+    height: 200px;
+    width: 250px;
+    position: relative;
+    top: 200px;
+    padding-top: 5px;
+}
+
+.signuptag{
+    background-color: rgb(187, 184, 184);
+    font-size: smaller;
+    padding-bottom: 2px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+a:link { color: black;}
+a:visited { color: black;}
+a:hover { color: yellow;}
+a:active { color: rgb(25, 26, 29);}
+
+.submitbtn{
+    background-color: #DEAA10;
+    font-size: smaller;
+    padding-bottom: 2px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+/* style="height: 515px; top: 120px;" */
+
+::placeholder{
+    text-align: center;
+    font-size: 15px;
+  }
+
+.ab{
+    background-color: black;
+}
+
+.bc{
+    background-color: red;
+}
+
+.cd{
+    background-color: brown;
+}
+
+/* html{
+    background:url(/static/account/images/body.jpg) no-repeat center fixed;
+    background-size:cover;
+} */
+
+.trp{
+    background-color: transparent;
+}
+
+.success{
+    color: rgba(251, 255, 0, 0.918);
+}
+
+.warning{
+    color: rgba(211, 24, 17, 0.918);
+}
+
+.home{
+    background-color: #778899;
+}
+
+select option:hover {
+    background: rgba(251, 255, 0, 0.918);
+    /* color: rgba(251, 255, 0, 0.918); */
+  }
+
+/* nav{
+    position: fixed;
+} */
+
+/* .navbar .navbar-nav > li.open > a:hover,
+.navbar .navbar-nav > li.open > a:focus {
+  background-color: rgb(59, 60, 63);
+  color: rgba(251, 255, 0, 0.918);
+} */
+
+/* .nav-item.dropdown .dropdown-item:active {
+    background-color: rgb(56, 58, 59) !important;
+} */
