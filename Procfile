@@ -1,1 +1,1 @@
-web: gunicorn accounting.wsgi --log-file -
+web: gunicorn --pythonpath accounting accounting.wsgi
