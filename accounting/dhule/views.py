@@ -15508,6 +15508,7 @@ def export_quarterly_bill(request):
 
 def patient_view(request):
     print('get mein: ', request)
+    print('request type: ', type(request))
     if request.user.is_authenticated:
         if request.user.location!='Solapur' or request.user.is_superuser==True:
             if request.method=='POST':
