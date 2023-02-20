@@ -15513,7 +15513,7 @@ def patient_view(request):
         if request.user.location!='Solapur' or request.user.is_superuser==True:
             if request.method=='POST':
                 print()
-                print('post mein: ', request)
+                print('post mein: ', request.POST)
                 fm_patient=PatientForm(request.POST)
                 for field in fm_patient:
                     print("Field Error:", field.name,  field.errors)
