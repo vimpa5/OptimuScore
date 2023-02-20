@@ -15507,13 +15507,9 @@ def export_quarterly_bill(request):
         return HttpResponseRedirect('/')
 
 def patient_view(request):
-    print('get mein: ', request)
-    print('request type: ', type(request))
     if request.user.is_authenticated:
         if request.user.location!='Solapur' or request.user.is_superuser==True:
             if request.method=='POST':
-                print()
-                print('post mein: ', request.POST)
                 fm_patient=PatientForm(request.POST)
                 for field in fm_patient:
                     print("Field Error:", field.name,  field.errors)
